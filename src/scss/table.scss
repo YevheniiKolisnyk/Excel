@@ -13,8 +13,11 @@
     display: flex;
     min-height: 20px;
     height: $row-height;
+    cursor: default;
+    user-select: none;
 
     .row-info {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,12 +26,29 @@
       border: 1px solid $border-color;
       background-color: #f8f9fa;
       border-top: none;
+
+        .row-resize {
+          position: absolute;
+          right: 0;
+          left: 0;
+          bottom: 0;
+          opacity: 0;
+          height: 4px;
+          background-color: $primary-color;
+          z-index: 100;
+
+            &:hover {
+              opacity: 1 !important;
+              cursor: row-resize;
+            }
+        }
     }
 
     .row-data {
       display: flex;
 
       .column {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -39,6 +59,24 @@
         border: 1px solid $border-color;
         border-top: none;
         border-left: none;
+        cursor: default;
+        user-select: none;
+
+        .col-resize {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 4px;
+          background-color: $primary-color;
+          opacity: 0;
+          z-index: 100;
+
+            &:hover {
+              opacity: 1 !important;
+              cursor: col-resize;
+            }
+        }
       }
 
       .cell {
@@ -52,11 +90,12 @@
         color: #111;
         white-space: nowrap;
         outline: none;
+        cursor: text;
 
 
         &.selected {
           border: none;
-          outline: 2px solid #3c74ff;
+          outline: 2px solid $primary-color;
           z-index: 2;
         }
       }
