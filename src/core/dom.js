@@ -5,12 +5,20 @@ class Dom {
             : selector
     }
 
+    get data() {
+        return this.$el.dataset
+    }
+
     html(html) {
-        if (typeof html ===  'string') {
+        if (typeof html === 'string') {
             this.$el.innerHTML = html
             return this
         }
         return this.$el.outerHTML.trim()
+    }
+
+    text(text) {
+        this.$el.textContent = text
     }
 
     clear() {
@@ -25,8 +33,9 @@ class Dom {
     off(eventType, callback) {
         this.$el.removeEventListener(eventType, callback)
     }
+
     append(node) {
-        if (node instanceof Dom){
+        if (node instanceof Dom) {
             node = node.$el
         }
         if (Element.prototype.append) {
@@ -35,10 +44,6 @@ class Dom {
             this.$el.appendChild(node)
         }
         return this
-    }
-
-    get data() {
-        return this.$el.dataset
     }
 
     closest(selector) {
@@ -63,8 +68,8 @@ class Dom {
         })
     }
 
-    id(parse){
-        if(parse){
+    id(parse) {
+        if (parse) {
             const parsed = this.id().split(':')
             return {
                 row: +parsed[0],
@@ -74,7 +79,7 @@ class Dom {
         return this.data.id
     }
 
-    focus(){
+    focus() {
         this.$el.focus()
         return this
     }
