@@ -14,6 +14,7 @@ export class Table extends ExcelComponent {
             listeners: ['mousedown', 'keydown'],
             ...options
         });
+        this.unsubs = []
     }
 
     toHTML() {
@@ -28,14 +29,17 @@ export class Table extends ExcelComponent {
         super.init()
         const $cell = this.$root.find(`[data-id="0:0"]`)
         this.selection.select($cell)
-        this.emitter.subscribe('it is working', text => {
+        this.$on('formula:input', text => {
             this.selection.current.text(text)
+        })
+
+        this.$on('formula:done', () => {
+            this.selection.current.focus()
         })
 
     }
 
     onMousedown(event) {
-        console.log(event)
         if (shouldResize(event)) {
             resizeHandler(this.$root, event)
         } else if (isCell(event)) {
@@ -67,6 +71,7 @@ export class Table extends ExcelComponent {
             const $next = this.$root.find(nextSelector(key, id))
 
             this.selection.select($next)
+            this.$emit('table:select', $next)
         }
     }
 }

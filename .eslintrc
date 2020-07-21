@@ -1,5 +1,5 @@
 {
-    "parsess": "babel-eslint",
+    "parsers": "babel-eslint",
     "env": {
         "es6": true,
         "browser": true,
