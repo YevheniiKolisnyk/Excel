@@ -3,7 +3,7 @@ import {
   CHANGE_STYLES,
   TABLE_RESIZE,
   APPLY_STYLE,
-  CHANGE_TITLE,
+  CHANGE_TITLE, UPDATE_DATE,
 } from './types';
 
 export function rootReducer(state, action) {
@@ -23,7 +23,6 @@ export function rootReducer(state, action) {
     case CHANGE_STYLES:
       return {...state, currentStyles: action.data}
     case APPLY_STYLE:
-      console.log(state)
       field = 'stylesState'
       val = state[field] || {}
       action.data.ids.forEach((id) => {
@@ -36,6 +35,8 @@ export function rootReducer(state, action) {
       }
     case CHANGE_TITLE:
       return {...state, title: action.data}
+    case UPDATE_DATE:
+      return {...state, openedDate: new Date().toJSON()}
     default: return state
   }
 }
